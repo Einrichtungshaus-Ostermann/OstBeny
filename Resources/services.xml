@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <!-- configuration -->
+        <service id="ost_beny.configuration" class="OstFoundation\Services\ConfigurationService">
+            <factory service="ost_foundation.services.configuration_service" method="getConfig"/>
+            <argument type="string">OstBeny</argument>
+        </service>
+
+        <!-- plugin services -->
+        <service id="ost_beny.number_parser_service" class="OstBeny\Services\NumberParserService">
+        </service>
+
+        <!-- plugin cronjob -->
+        <service id="ost_beny.cronjobs.sync_prices" class="OstBeny\Cronjobs\SyncPrices">
+            <tag name="shopware.event_listener" method="run" event="Shopware_CronJob_OstBeny" />
+        </service>
+
+        <!-- frontend and widget controller listeners -->
+        <service id="ost_beny.listeners.controllers.frontend.detail.pre_dispatch" class="OstBeny\Listeners\Controllers\Frontend\Detail">
+            <argument type="string">%ost_beny.view_dir%</argument>
+            <tag name="shopware.event_listener" method="onPreDispatch" event="Enlight_Controller_Action_PreDispatch_Frontend_Detail" />
+        </service>
+
+        <service id="ost_beny.listeners.controllers.frontend.detail.post_dispatch" class="OstBeny\Listeners\Controllers\Frontend\Detail">
+            <argument type="string">%ost_beny.view_dir%</argument>
+            <tag name="shopware.event_listener" method="onPostDispatch" event="Enlight_Controller_Action_PostDispatch_Frontend_Detail" />
+        </service>
+
+    </services>
+</container>
