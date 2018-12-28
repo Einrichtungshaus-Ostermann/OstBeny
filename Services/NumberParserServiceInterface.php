@@ -21,15 +21,15 @@ interface NumberParserServiceInterface
      *
      * @return string
      */
-    public function parseId( $id );
+    public function parseId($id);
 
     /**
      * Create an id from article number and company.
      *
-     * @param string  $number
-     * @param integer $company
+     * @param string $number
+     * @param int    $company
      *
      * @return string
      */
-    public function parseNumber( $number, $company );
+    public function parseNumber($number, $company);
 }

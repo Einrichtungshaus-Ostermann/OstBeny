@@ -14,7 +14,6 @@ namespace OstBeny\Models;
 
 use Doctrine\ORM\Mapping as ORM;
 use Shopware\Components\Model\ModelEntity;
-use Shopware\Models\Customer\Customer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,7 +25,7 @@ class Article extends ModelEntity
     /**
      * Auto-generated id.
      *
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -57,7 +56,7 @@ class Article extends ModelEntity
     /**
      * ...
      *
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="ranking", type="integer", nullable=false)
      */
@@ -91,7 +90,6 @@ class Article extends ModelEntity
      * @ORM\ManyToOne(targetEntity="OstBeny\Models\Marketplace")
      * @ORM\JoinColumn(name="marketplaceId", referencedColumnName="id")
      */
-
     protected $marketplace;
 
     /**
@@ -125,8 +123,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param \DateTime $date
-     *
-     * @return void
      */
     public function setDate($date)
     {
@@ -147,8 +143,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param string $number
-     *
-     * @return void
      */
     public function setNumber($number)
     {
@@ -169,8 +163,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param int $ranking
-     *
-     * @return void
      */
     public function setRanking($ranking)
     {
@@ -191,8 +183,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param float $price
-     *
-     * @return void
      */
     public function setPrice($price)
     {
@@ -213,8 +203,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param string $competitor
-     *
-     * @return void
      */
     public function setCompetitor($competitor)
     {
@@ -235,8 +223,6 @@ class Article extends ModelEntity
      * Setter method for the property.
      *
      * @param Marketplace $marketplace
-     *
-     * @return void
      */
     public function setMarketplace($marketplace)
     {

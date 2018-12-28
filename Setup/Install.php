@@ -12,12 +12,12 @@
 
 namespace OstBeny\Setup;
 
+use Doctrine\ORM\Tools\SchemaTool;
+use OstBeny\Models;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
-use Doctrine\ORM\Tools\SchemaTool;
-use OstBeny\Models;
 
 class Install
 {
@@ -122,6 +122,6 @@ class Install
             (NULL, 'google.de', 'Google'),
             (NULL, 'idealo.de', 'Idealo');
         ";
-        Shopware()->Db()->query( $query );
+        Shopware()->Db()->query($query);
     }
 }

@@ -10,75 +10,106 @@
  * @license   proprietary
  */
 
-namespace OstBeny\Cronjobs;
+namespace OstBeny\Commands;
 
+use Shopware\Commands\ShopwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use OstBeny\Services\ListServiceInterface;
 use OstBeny\Services\NumberParserServiceInterface;
-use Shopware_Components_Cron_CronJob as CronJob;
+use Enlight_Components_Db_Adapter_Pdo_Mysql as Db;
 
-class SyncPrices
+class SyncPricesCommand extends ShopwareCommand
 {
     /**
      * ...
      *
-     * @param CronJob $cronjob
-     *
-     * @return bool
+     * @var Db
      */
-    public function run(CronJob $cronjob)
+    private $db;
+
+    /**
+     * ...
+     *
+     * @var ListServiceInterface
+     */
+    private $listService;
+
+    /**
+     * ...
+     *
+     * @var NumberParserServiceInterface
+     */
+    private $numberParserService;
+
+    /**
+     * @param Db                           $db
+     * @param ListServiceInterface         $listService
+     * @param NumberParserServiceInterface $numberParserService
+     */
+    public function __construct(Db $db, ListServiceInterface $listService, NumberParserServiceInterface $numberParserService)
     {
-        /* @var $listService ListServiceInterface */
-        $listService = Shopware()->Container()->get('ost_beny.list_service');
+        parent::__construct();
+        $this->db = $db;
+        $this->listService = $listService;
+        $this->numberParserService = $numberParserService;
+    }
 
-        /* @var $numberParserService NumberParserServiceInterface */
-        $numberParserService = Shopware()->Container()->get('ost_beny.number_parser_service');
-
+    /**
+     * {@inheritdoc}
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         // get every marketplace
         $query = '
             SELECT *
             FROM ost_beny_marketplaces
             ORDER BY id ASC
         ';
-        $marketplaces = Shopware()->Db()->fetchAll($query);
+        $marketplaces = $this->db->fetchAll($query);
 
         // loop every marketplace
         foreach ($marketplaces as $marketplace) {
+            // log
+            $output->writeln('processing marketplace - name: ' . $marketplace['name'] . ' - key: ' . $marketplace['key']);
+            $output->writeln('retrieving list');
+
             // get every article from beny
-            $articles = $listService->getList($marketplace['key']);
+            $articles = $this->listService->getList($marketplace['key']);
 
             // log
-            $this->log('processing marketplace - name: ' . $marketplace['name'] . ' - key: ' . $marketplace['key'] . ' - articles: ' . count($articles));
+            $output->writeln('processing articles');
+
+            // start the progress bar
+            $progressBar = new ProgressBar($output, count($articles));
+            $progressBar->setRedrawFrequency(10);
+            $progressBar->start();
 
             // loop every article
             foreach ($articles as $article) {
                 // get the internal article number
-                $number = $numberParserService->parseId($article['ID']);
-
-                // log
-                $this->log('processing - article: ' . $article['ID'] . ' - number: ' . $number . ' - ', false);
+                $number = $this->numberParserService->parseId($article['ID']);
 
                 // we need a valid price
                 if (((float) $article['NEW PRICE'] === 0) || ((float) $article['OLD PRICE'] === 0) || ((float) $article['BEST PRICE'] === 0)) {
-                    // log
-                    $this->log('removing article');
-
                     // delete from beny
                     $query = '
                         DELETE FROM ost_beny_articles
                         WHERE number = ?
                             AND marketplaceId = ?
                     ';
-                    Shopware()->Db()->query($query, [
-                        $numberParserService->parseId($article['ID']),
+                    $this->db->query($query, [
+                        $number,
                         $marketplace['id']
                     ]);
+
+                    // advance progress bar
+                    $progressBar->advance();
 
                     // next
                     continue;
                 }
-
-                // log
-                $this->log('updating article');
 
                 // create date to work with
                 $date = new \DateTime($article['LAST UPDATE']);
@@ -93,9 +124,9 @@ class SyncPrices
                         `price` = ?,
                         `competitor` = ?;
                 ';
-                Shopware()->Db()->query($query, [
+                $this->db->query($query, [
                     date('Y-m-d H:i:s', $date->getTimestamp()),
-                    $numberParserService->parseId($article['ID']),
+                    $number,
                     $article['RANKING'],
                     (float) $article['BEST PRICE'] / 100,
                     $article['BEST OFFERER'],
@@ -105,22 +136,14 @@ class SyncPrices
                     (float) $article['BEST PRICE'] / 100,
                     $article['BEST OFFERER'],
                 ]);
+
+                // advance progress bar
+                $progressBar->advance();
             }
+
+            // done with this marketplace
+            $progressBar->finish();
+            $output->writeln('');
         }
-
-        // done
-        return true;
-    }
-
-    /**
-     * ...
-     *
-     * @param string $message
-     * @param mixed  $nl
-     */
-    private function log($message = '', $nl = true)
-    {
-        // ...
-        echo $message . (($nl === true) ? '<br />' : '');
     }
 }

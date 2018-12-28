@@ -12,10 +12,8 @@
     </a>
 </div>
 
-{* actual content loaded via widget *}
+{* the tab content *}
 <div class="content--ost-beny">
-
-
 
     {* our table *}
     <table class="ost-beny--detail-tab--table">
@@ -35,34 +33,21 @@
                     {$marketplace.name}
                 </td>
 
-
-
-
                 <td>
-
-
                     {if $marketplace.id == 0}
-
                         kein Preisvergleich gefunden
-
                     {else}
                         Datum: {$marketplace.date}<br />
                         Rank: {$marketplace.ranking}<br />
                         Preis: {$marketplace.price}<br />
                         Händler: {$marketplace.competitor}
                     {/if}
-
-
                 </td>
-
-
 
             </tr>
         {/foreach}
 
         </tbody>
     </table>
-
-
 
 </div>

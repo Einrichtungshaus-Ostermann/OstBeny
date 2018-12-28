@@ -14,8 +14,6 @@ namespace OstBeny\Models;
 
 use Doctrine\ORM\Mapping as ORM;
 use Shopware\Components\Model\ModelEntity;
-use Shopware\Models\Customer\Customer;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Repository")
@@ -26,7 +24,7 @@ class Marketplace extends ModelEntity
     /**
      * Auto-generated id.
      *
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -83,8 +81,6 @@ class Marketplace extends ModelEntity
      * Setter method for the property.
      *
      * @param string $key
-     *
-     * @return void
      */
     public function setKey($key)
     {
@@ -105,12 +101,9 @@ class Marketplace extends ModelEntity
      * Setter method for the property.
      *
      * @param string $name
-     *
-     * @return void
      */
     public function setName($name)
     {
         $this->name = $name;
     }
-
 }

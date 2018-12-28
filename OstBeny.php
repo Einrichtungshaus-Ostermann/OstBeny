@@ -8,6 +8,9 @@
  * 1.0.0
  * - initial release
  *
+ * 1.1.0
+ * - added console command to sync prices
+ *
  * @package   OstBeny
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
@@ -38,8 +41,6 @@ class OstBeny extends Plugin
         parent::build($container);
     }
 
-
-
     /**
      * Activate the plugin.
      *
@@ -50,8 +51,6 @@ class OstBeny extends Plugin
         // clear complete cache after we activated the plugin
         $context->scheduleClearCache($context::CACHE_LIST_ALL);
     }
-
-
 
     /**
      * Install the plugin.
@@ -82,8 +81,6 @@ class OstBeny extends Plugin
         parent::install($context);
     }
 
-
-
     /**
      * Update the plugin.
      *
@@ -101,8 +98,6 @@ class OstBeny extends Plugin
         // call default updater
         parent::update($context);
     }
-
-
 
     /**
      * Uninstall the plugin.

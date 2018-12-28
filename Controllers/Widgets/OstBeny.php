@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/**
+/*
  * Einrichtungshaus Ostermann GmbH & Co. KG - Beny
  *
  * @package   OstBeny
@@ -49,6 +49,6 @@ class Shopware_Controllers_Widgets_OstBeny extends Enlight_Controller_Action imp
      */
     public function indexAction()
     {
-        die("...");
+        die('...');
     }
 }

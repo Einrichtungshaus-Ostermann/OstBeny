@@ -14,7 +14,6 @@ namespace OstBeny\Listeners\Controllers\Frontend;
 
 use Enlight_Event_EventArgs as EventArgs;
 use Shopware_Controllers_Frontend_Detail as Controller;
-use OstBeny\Models;
 
 class Detail
 {
@@ -83,20 +82,20 @@ class Detail
         }
 
         // get the article number
-        $number = $view->getAssign( "sArticle" )['ordernumber'];
+        $number = $view->getAssign('sArticle')['ordernumber'];
 
         // get every price
-        $query = "
+        $query = '
             SELECT article.*, marketplace.name
             FROM ost_beny_marketplaces AS marketplace
                 LEFT JOIN ost_beny_articles AS article
                     ON marketplace.id = article.marketplaceId
                         AND article.number = :number
             WHERE 1 = 1
-        ";
-        $marketplaces = Shopware()->Db()->fetchAll( $query, array( 'number' => $number ) ) ;
+        ';
+        $marketplaces = Shopware()->Db()->fetchAll($query, ['number' => $number]);
 
         // ...
-        $view->assign( "ostBeny", array( 'marketplaces' => $marketplaces ) );
+        $view->assign('ostBeny', ['marketplaces' => $marketplaces]);
     }
 }

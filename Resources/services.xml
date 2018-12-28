@@ -10,8 +10,19 @@
             <argument type="string">OstBeny</argument>
         </service>
 
+        <!-- commands -->
+        <service id="ost_beny.commands.sync_prices_command" class="OstBeny\Commands\SyncPricesCommand">
+            <tag name="console.command" command="ost-beny:sync-prices"/>
+            <argument type="service" id="db"/>
+            <argument type="service" id="ost_beny.list_service"/>
+            <argument type="service" id="ost_beny.number_parser_service"/>
+        </service>
+
         <!-- plugin services -->
         <service id="ost_beny.number_parser_service" class="OstBeny\Services\NumberParserService">
+        </service>
+
+        <service id="ost_beny.list_service" class="OstBeny\Services\ListService">
         </service>
 
         <!-- plugin cronjob -->

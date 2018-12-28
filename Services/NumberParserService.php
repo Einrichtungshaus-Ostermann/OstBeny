@@ -17,29 +17,29 @@ class NumberParserService implements NumberParserServiceInterface
     /**
      * @var array
      */
-    private $length = array(
+    private $length = [
         'company' => 2,
         'number'  => 8,
         'trail'   => 5
-    );
+    ];
 
     /**
      * {@inheritdoc}
      */
-    public function parseId( $id )
+    public function parseId($id)
     {
         // extract article number and remove zeros
-        return ltrim( substr( $id, 2, 8 ), "0" );
+        return ltrim(substr($id, 2, 8), '0');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function parseNumber( $number, $company )
+    public function parseNumber($number, $company)
     {
         // use str_pad to lengthen the article number
-        return str_pad( $company, $this->length['company'], "0", STR_PAD_LEFT ) .
-            str_pad( $number, $this->length['number'], "0", STR_PAD_LEFT ) .
-            str_repeat( "0", $this->length['trail'] );
+        return str_pad($company, $this->length['company'], '0', STR_PAD_LEFT) .
+            str_pad($number, $this->length['number'], '0', STR_PAD_LEFT) .
+            str_repeat('0', $this->length['trail']);
     }
 }

@@ -12,12 +12,12 @@
 
 namespace OstBeny\Setup;
 
+use Doctrine\ORM\Tools\SchemaTool;
+use OstBeny\Models;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\UninstallContext;
-use Doctrine\ORM\Tools\SchemaTool;
-use OstBeny\Models;
 
 class Uninstall
 {

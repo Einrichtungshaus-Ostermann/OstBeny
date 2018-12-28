@@ -14,7 +14,7 @@
     {$smarty.block.parent}
 
     {* append our tab *}
-    <a href="#" class="tab--link" title="Verfügbarkeit" data-tabName="ost-beny">Preisvergleich</a>
+    <a href="#" class="tab--link" title="Preisvergleich" data-tabName="ost-beny">Preisvergleich</a>
 
 {/block}
 
