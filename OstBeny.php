@@ -11,6 +11,9 @@
  * 1.1.0
  * - added console command to sync prices
  *
+ * 1.1.1
+ * - fixed plugin name
+ *
  * @package   OstBeny
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
