@@ -37,7 +37,7 @@
                     {if $marketplace.id == 0}
                         kein Preisvergleich gefunden
                     {else}
-                        Datum: {$marketplace.date}<br />
+                        {* Datum: {$marketplace.date}<br /> *}
                         Rank: {$marketplace.ranking}<br />
                         Preis: {$marketplace.price}<br />
                         Händler: {$marketplace.competitor}

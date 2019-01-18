@@ -14,6 +14,9 @@
  * 1.1.1
  * - fixed plugin name
  *
+ * 1.1.2
+ * - removed date from info tab
+ *
  * @package   OstBeny
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
