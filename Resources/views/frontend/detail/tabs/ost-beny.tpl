@@ -34,7 +34,7 @@
                 </td>
 
                 <td>
-                    {if $marketplace.id == 0}
+                    {if $marketplace.id == 0 || $marketplace.ranking == 0 || $marketplace.price == 0}
                         kein Preisvergleich gefunden
                     {else}
                         {* Datum: {$marketplace.date}<br /> *}

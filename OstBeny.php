@@ -17,6 +17,9 @@
  * 1.1.2
  * - removed date from info tab
  *
+ * 1.1.3
+ * - fixed output of faulty beny data
+ *
  * @package   OstBeny
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
