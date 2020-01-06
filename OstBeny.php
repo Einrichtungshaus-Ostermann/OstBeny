@@ -20,6 +20,9 @@
  * 1.1.3
  * - fixed output of faulty beny data
  *
+ * 1.1.4
+ * - added snippets
+ *
  * @package   OstBeny
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

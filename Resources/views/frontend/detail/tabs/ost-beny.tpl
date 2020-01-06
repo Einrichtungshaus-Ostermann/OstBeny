@@ -19,8 +19,8 @@
     <table class="ost-beny--detail-tab--table">
         <thead>
         <tr>
-            <td>Marktplatz</td>
-            <td>Info</td>
+            <td>{s name="header-marketplace"}Marktplatz{/s}</td>
+            <td>{s name="header-info"}Info{/s}</td>
         </tr>
         </thead>
         <tbody>
@@ -35,12 +35,12 @@
 
                 <td>
                     {if $marketplace.id == 0 || $marketplace.ranking == 0 || $marketplace.price == 0}
-                        kein Preisvergleich gefunden
+                        {s name="no-price-comparison-found"}kein Preisvergleich gefunden{/s}
                     {else}
                         {* Datum: {$marketplace.date}<br /> *}
-                        Rank: {$marketplace.ranking}<br />
-                        Preis: {$marketplace.price}<br />
-                        Händler: {$marketplace.competitor}
+                        {s name="label-rank"}Rank:{/s} {$marketplace.ranking}<br />
+                        {s name="label-price"}Preis:{/s} {$marketplace.price}<br />
+                        {s name="label-merchant"}Händler:{/s}: {$marketplace.competitor}
                     {/if}
                 </td>
 
